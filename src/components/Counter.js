@@ -4,17 +4,17 @@ import classes from "./Counter.module.css";
 //! 1. Fetching the a piece of state from store as in redux the store has all the states
 //! in one place but we dont need the whole data
 //! 2. It automatically assigns a SUBSCRIBER function to the component for the latest state
-//!and when component is umnounted from dom the subscriber function is also removed from it
+//! and when component is umnounted from dom the subscriber function is also removed from it
 
 //! connect is used to implement the redux hooks in class based form
 import { useSelector, useDispatch, connect } from "react-redux";
 
 const Counter = () => {
-  // //!useDispatch returns the dispatch function which we can use to send actions to redux
+  // //! useDispatch returns the dispatch function which we can use to send actions to redux
   const dispatch = useDispatch();
 
-  // //!state => state.counter : means we need only the "counter" part of state from the store
-  // //!as of now only counter state is there but if there were a lots of states then it makes more sense
+  // //! state => state.counter : means we need only the "counter" part of state from the store
+  // //! as of now only counter state is there but if there were a lots of states then it makes more sense
   const counter = useSelector((state) => state.counter);
 
   const toggleCounterHandler = () => {};
@@ -22,6 +22,14 @@ const Counter = () => {
   const incrementHandler = () => {
     dispatch({ type: "increment" });
   };
+
+
+  //! at time we would like to pass a avalue along with the action type,
+  //! the value is called "PAYLOAD", in this case "value" prperty is the payload
+  //! of action "increase"
+  const increaseHandler = () =>{
+    dispatch({ type : "increase", value : 5,})
+  }
 
   const decrementHandler = () => {
     dispatch({ type: "decrement" });
@@ -33,6 +41,7 @@ const Counter = () => {
       <div className="btn">
         <button onClick={incrementHandler}>Inc</button>
         <button onClick={decrementHandler}> Dec</button>
+        <button onClick={increaseHandler}> Inc by </button>
       </div>
       <div className={classes.value}>{counter}</div>
       <button onClick={toggleCounterHandler}>Toggle Counter</button>
